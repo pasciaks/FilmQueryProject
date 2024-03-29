@@ -151,8 +151,8 @@ public class Film {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Film");
-		// builder.append("\n id = ");
-		// builder.append(id);
+		builder.append("\n id = ");
+		builder.append(id);
 		builder.append("\n               title = ");
 		builder.append(title);
 		builder.append("\n         description = ");
