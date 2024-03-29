@@ -147,6 +147,12 @@ public class Film {
 		this.language = language;
 	}
 
+	public String toShortString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(title + " (" + releaseYear + "/" + rating + ") ");
+		return builder.toString();
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

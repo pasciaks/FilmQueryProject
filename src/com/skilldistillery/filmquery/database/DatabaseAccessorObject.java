@@ -217,7 +217,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 			rs.close();
 			stmt.close();
-			conn.close();
 
 		} catch (SQLException e) {
 

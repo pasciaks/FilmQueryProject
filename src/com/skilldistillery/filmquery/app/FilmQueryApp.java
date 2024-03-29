@@ -168,10 +168,17 @@ public class FilmQueryApp {
 	private void testGetActorByActorId(int actorId) {
 
 		Actor actor = db.findActorById(actorId);
+
 		if (actor == null || actor.getId() == 0) {
-			System.out.println("Actor not found.");
+
+			System.err.println("\nActor not found.");
+
 		} else {
+
+			System.err.println("\nActor was found.\n");
 			System.out.println(actor.toString());
+
+			testGetFilmsForActorId(actorId);
 		}
 
 	}
@@ -197,15 +204,17 @@ public class FilmQueryApp {
 		List<Film> filmsForActor = db.findFilmsByActorId(actorId);
 
 		if (filmsForActor == null || filmsForActor.isEmpty() || filmsForActor.size() == 0) {
-			System.out.println("Actor or Films for Actor not found...");
+			System.out.println("\nActor or Films for Actor not found...\n");
 			return;
 		} else {
-			System.out.println("Actor: " + actorId + " has appeared in " + filmsForActor.size() + " films.");
+			System.out.println("\nActor: " + actorId + " has appeared in " + filmsForActor.size() + " films.\n");
 		}
 
 		for (Film film2 : filmsForActor) {
-			System.out.println(film2.toString());
+			System.out.println(film2.toShortString());
 		}
+
+		return;
 
 	}
 
@@ -219,16 +228,7 @@ public class FilmQueryApp {
 	}
 
 	private void showTitle() {
-		System.out.println("\n\n Film Query App \n\n");
-	}
-
-	private void showTitleAlternative() {
-		System.out.println("	 _____  _  _           ___                        ");
-		System.out.println("	 | __| (_) |_ __ ___  / _ \\ _   _  ___ _ __ _   _ ");
-		System.out.println("	 | |_  | | | '_ ` _ \\| | | | | | |/ _ \\ '__| | | |");
-		System.out.println("	 |  _| | | | | | | | | |_| | |_| |  __/ |  | |_| |");
-		System.out.println("	 |_|   |_|_|_| |_| |_|\\__\\_\\\\__,_|\\___|_|   \\__, |");
-		System.out.println("	                                            |___/ ");
+		System.out.println("\n Film Query App");
 	}
 
 	private void startUserInterface(Scanner input) {
@@ -257,11 +257,16 @@ public class FilmQueryApp {
 					System.out.println("\nPlease enter a keyword to search for:");
 					String keyword = input.nextLine();
 					findAllFilms(keyword);
-					// TODO - convert to like query instead of filtering from all
 					break;
 				case 3:
 					System.out.println("\nExiting the application.");
 					keepGoing = false;
+					break;
+				case 9:
+					System.out.println("\n\nEASTER EGG HIDDEN FEATURE\n\n");
+					System.out.println("\nPlease enter the Actor ID:");
+					int actorId = Integer.parseInt(input.nextLine());
+					testGetActorByActorId(actorId);
 					break;
 				default:
 					System.err.println("\nInvalid selection. Please try again.");
