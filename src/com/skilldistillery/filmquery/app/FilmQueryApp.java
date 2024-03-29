@@ -1,6 +1,5 @@
 package com.skilldistillery.filmquery.app;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,22 +66,6 @@ public class FilmQueryApp {
 		boolean connected = ((DatabaseAccessorObject) app.db).openConnection();
 
 		if (connected) {
-			// app.testFindAllActors();
-			// app.testFindAllFilms("This film does not exist.");
-			// app.testGetActorByActorId(1);
-			// app.testGetActorByActorId(-1);
-			// app.testGetFilmAndActorsForFilmByFilmId(1);
-			// app.testGetFilmAndActorsForFilmByFilmId(555);
-			// app.testGetFilmAndActorsForFilmByFilmId(-9);
-			// app.testGetFilmById(1);
-			// app.testGetFilmById(5551);
-			// app.testGetFilmAndActorsForFilmByFilmId(0);
-			// app.testGetFilmsForActorId(1);
-		} else {
-			System.out.println("Database connection failed.");
-		}
-
-		if (connected) {
 			app.launch();
 		} else {
 			System.out.println("\nDatabase connection failed.");
@@ -104,74 +87,74 @@ public class FilmQueryApp {
 		} else {
 			System.out.println("Actors found: " + actors.size() + "\n");
 			for (Actor actor : actors) {
-				// if (actor.getId() == 1) {
 				System.out.println(actor.toString());
-				// }
 			}
 		}
 	}
 
-	private void testFindAllFilms(String keyword) {
+//  This original method was re factor to use like query instead of filtering from all
+//	
+//	private void testFindAllFilms(String keyword) {
+//
+//		List<Film> films = db.findAllFilms(keyword);
+//
+//		List<Film> foundFilms = new ArrayList<>();
+//
+//		if (films == null || films.isEmpty()) {
+//
+//			System.err.println("\nNo films found from database.");
+//
+//		} else {
+//
+//			// System.out.println("Films found: " + films.size() + "\n");
+//
+//			for (Film film : films) {
+//
+//				if (film.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
+//
+//					foundFilms.add(film);
+//
+//				} else if (film.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+//
+//					foundFilms.add(film);
+//
+//				} else {
+//
+//					// no match this iteration
+//
+//				}
+//			}
+//		}
+//
+//		if (foundFilms.isEmpty()) {
+//			System.err.println("\nNo films found for keyword: " + keyword + "\n");
+//			return;
+//		}
+//
+//		for (Film film : foundFilms) {
+//			System.out.println(film.toString());
+//		}
+//
+//		System.err.println("\nTotal of " + foundFilms.size() + " Films found for keyword: " + keyword + "\n");
+//
+//	}
 
-		List<Film> films = db.findAllFilms();
+	private void findAllFilms(String searchKeyword) {
 
-		List<Film> foundFilms = new ArrayList<>();
+		System.out.println("\n\nSearching for films with keyword: " + searchKeyword + "\n");
 
-		if (films == null || films.isEmpty()) {
-
-			System.err.println("\nNo films found from database.");
-
-		} else {
-
-			// System.out.println("Films found: " + films.size() + "\n");
-
-			for (Film film : films) {
-
-				if (film.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
-
-					foundFilms.add(film);
-
-				} else if (film.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-
-					foundFilms.add(film);
-
-				} else {
-
-					// no match this iteration
-
-				}
-			}
-		}
-
-		if (foundFilms.isEmpty()) {
-			System.err.println("\nNo films found for keyword: " + keyword + "\n");
-			return;
-		}
-
-		for (Film film : foundFilms) {
-			System.out.println(film.toString());
-		}
-
-		System.err.println("\nTotal of " + foundFilms.size() + " Films found for keyword: " + keyword + "\n");
-
-	}
-
-	private void testFindAllFilms() {
-
-		List<Film> films = db.findAllFilms();
+		List<Film> films = db.findAllFilms(searchKeyword);
 		if (films == null || films.isEmpty()) {
 			System.out.println("No films found.");
 		} else {
-			System.out.println("Films found: " + films.size() + "\n");
 			for (Film film : films) {
-				// if (film.getId() == 1) {
 				System.out.println(film.toString());
-				// }
 			}
+			System.out.println(films.size() + " Films found for keyword: " + searchKeyword + "\n");
 		}
 	}
 
-	private void testGetFilmById(int filmId) {
+	private void getFilmById(int filmId) {
 
 		Film film = db.findFilmById(filmId);
 		if (film == null || film.getId() == 0) {
@@ -243,11 +226,11 @@ public class FilmQueryApp {
 
 			try {
 
-				System.out.println("Please select from the following options:");
+				System.out.println("\n\nPlease select from the following options:");
 				System.out.println("1. Look up a film by its ID.");
 				System.out.println("2. Look up a film by a keyword search.");
 				System.out.println("3. Exit the application.");
-				System.err.print("\nEnter your selection: ");
+				System.out.print("\nEnter your selection: ");
 
 				int userChoice = Integer.parseInt(input.nextLine());
 
@@ -255,12 +238,12 @@ public class FilmQueryApp {
 				case 1:
 					System.out.println("\nPlease enter the film ID:");
 					int filmId = Integer.parseInt(input.nextLine());
-					testGetFilmById(filmId);
+					getFilmById(filmId);
 					break;
 				case 2:
 					System.out.println("\nPlease enter a keyword to search for:");
 					String keyword = input.nextLine();
-					testFindAllFilms(keyword);
+					findAllFilms(keyword);
 					// TODO - convert to like query instead of filtering from all
 					break;
 				case 3:

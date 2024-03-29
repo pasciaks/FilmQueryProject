@@ -284,11 +284,19 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 
 	@Override
-	public List<Film> findAllFilms() {
+	public List<Film> findAllFilms(String searchKeyword) {
 
 		List<Film> allFilms = new ArrayList<>();
 
-		String sql = "select film.*, l.`name` as language from film join `language` l on l.id  = film.language_id";
+		searchKeyword = searchKeyword.trim();
+
+		String sql = "select film.*, l.`name` as language from film join `language` l on l.id  = film.language_id ";
+
+		String keywordFilter = " WHERE film.title LIKE ? OR film.description LIKE ? ";
+
+		if (searchKeyword != null && !searchKeyword.isEmpty()) {
+			sql += keywordFilter;
+		}
 
 		Film film = null;
 
@@ -299,6 +307,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 
 			stmt = conn.prepareStatement(sql);
+
+			if (searchKeyword != null && !searchKeyword.isEmpty()) {
+				stmt.setString(1, "%" + searchKeyword + "%");
+				stmt.setString(2, "%" + searchKeyword + "%");
+			}
 
 			filmResult = stmt.executeQuery();
 
