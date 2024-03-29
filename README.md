@@ -1,3 +1,5 @@
+# FilmQueryProject
+	
 # Film Query Lab and Homework Project!
 
 #### Technologies Used
@@ -128,5 +130,4 @@ class DatabaseAccessTests {
 ```
 
 ![JUnit Screenshot](junit.png)
-	
-	# FilmQueryProject
+
