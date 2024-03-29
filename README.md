@@ -131,3 +131,52 @@ class DatabaseAccessTests {
 
 ![JUnit Screenshot](junit.png)
 
+#### User Stories
+
+User Stories
+
+User Story 1 (COMPLETED)
+
+The user is presented with a menu in which they can choose to:
+
+- Look up a film by its id.
+- Look up a film by a search keyword.
+- Exit the application.
+
+User Story 2 (COMPLETED)
+
+- If the user looks up a film by id, they are prompted to enter the film id. If the film is not found, they see a message saying so. If the film is found, its title, year, rating, and description are displayed.
+
+User Story 3 (COMPLETED)
+
+- If the user looks up a film by search keyword, they are prompted to enter it. If no matching films are found, they see a message saying so. Otherwise, they see a list of films for which the search term was found anywhere in the title or description, with each film displayed exactly as it is for User Story 2.
+
+User Story 4 (COMPLETED)
+
+- When a film is displayed, its language (English,Japanese, etc.) is displayed, in addition to the film's title, year, rating, and description.
+
+User Story 5 (COMPLETED)
+
+- When a film is displayed, the list of actors in its cast is displayed, in addition to the film's title, year, rating, description, and language.
+
+Stretch Goals
+
+Goal 1
+- When a film is displayed, the user can choose from a submenu whether to:
+- Return to the main menu.
+- View all film details.
+
+- If they choose to view all details, they will see all column values of the film record they chose.
+
+Goal 2
+
+- When viewing film details, the user will see a list of all the film's categories (Family, Comedy, etc.) for the film.
+
+Goal 3
+
+- When viewing film details, the user will see a list of all copies of the film in inventory, with their condition.
+
+Goal 4 (COMPLETED)
+
+- Write JUnit tests for DatabaseAccessorObject's methods.
+

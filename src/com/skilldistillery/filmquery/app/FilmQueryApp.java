@@ -85,22 +85,18 @@ public class FilmQueryApp {
 		if (connected) {
 			app.launch();
 		} else {
-			System.out.println("Database connection failed.");
+			System.out.println("\nDatabase connection failed.");
 		}
 
-		((DatabaseAccessorObject) app.db).closeConnection();
+		boolean isClosed = ((DatabaseAccessorObject) app.db).closeConnection();
 
-	}
+		System.out.println("Database connection closed: " + isClosed);
 
-	private void printTitleDivider(String title) {
-		System.out.println("--------------------------------------------");
-		System.out.println(title);
-		System.out.println("--------------------------------------------");
+		System.err.println("\n\nGoodbye.\n");
+
 	}
 
 	private void testFindAllActors() {
-
-		printTitleDivider("testFindAllActors");
 
 		List<Actor> actors = db.findAllActors();
 		if (actors == null || actors.isEmpty()) {
@@ -117,15 +113,13 @@ public class FilmQueryApp {
 
 	private void testFindAllFilms(String keyword) {
 
-		printTitleDivider("testFindAllFilms");
-
 		List<Film> films = db.findAllFilms();
 
 		List<Film> foundFilms = new ArrayList<>();
 
 		if (films == null || films.isEmpty()) {
 
-			System.out.println("No films found from database.");
+			System.err.println("\nNo films found from database.");
 
 		} else {
 
@@ -150,21 +144,19 @@ public class FilmQueryApp {
 		}
 
 		if (foundFilms.isEmpty()) {
-			System.out.println("No films found for keyword: " + keyword + "\n");
+			System.err.println("\nNo films found for keyword: " + keyword + "\n");
 			return;
-		} else {
-			System.out.println("Films found for keyword: " + keyword + " - " + foundFilms.size() + "\n");
 		}
 
 		for (Film film : foundFilms) {
 			System.out.println(film.toString());
 		}
 
+		System.err.println("\nTotal of " + foundFilms.size() + " Films found for keyword: " + keyword + "\n");
+
 	}
 
 	private void testFindAllFilms() {
-
-		printTitleDivider("testFindAllFilms");
 
 		List<Film> films = db.findAllFilms();
 		if (films == null || films.isEmpty()) {
@@ -181,8 +173,6 @@ public class FilmQueryApp {
 
 	private void testGetFilmById(int filmId) {
 
-		printTitleDivider("testGetFilmById");
-
 		Film film = db.findFilmById(filmId);
 		if (film == null || film.getId() == 0) {
 			System.out.println("Film not found for filmId = " + filmId);
@@ -194,8 +184,6 @@ public class FilmQueryApp {
 
 	private void testGetActorByActorId(int actorId) {
 
-		printTitleDivider("testGetActorByActorId");
-
 		Actor actor = db.findActorById(actorId);
 		if (actor == null || actor.getId() == 0) {
 			System.out.println("Actor not found.");
@@ -206,8 +194,6 @@ public class FilmQueryApp {
 	}
 
 	private void testGetFilmAndActorsForFilmByFilmId(int filmId) {
-
-		printTitleDivider("testGetFilmAndActorsForFilmByFilmId");
 
 		Film film = db.findFilmById(filmId);
 
@@ -224,8 +210,6 @@ public class FilmQueryApp {
 	}
 
 	private void testGetFilmsForActorId(int actorId) {
-
-		printTitleDivider("testGetFilmsForActorId");
 
 		List<Film> filmsForActor = db.findFilmsByActorId(actorId);
 
@@ -257,31 +241,40 @@ public class FilmQueryApp {
 
 		while (keepGoing) {
 
-			System.out.println("Please select from the following options:");
-			System.out.println("1. Look up a film by its ID.");
-			System.out.println("2. Look up a film by a keyword search.");
-			System.out.println("3. Exit the application.");
+			try {
 
-			int userChoice = Integer.parseInt(input.nextLine());
+				System.out.println("Please select from the following options:");
+				System.out.println("1. Look up a film by its ID.");
+				System.out.println("2. Look up a film by a keyword search.");
+				System.out.println("3. Exit the application.");
+				System.err.print("\nEnter your selection: ");
 
-			switch (userChoice) {
-			case 1:
-				System.out.println("Please enter the film ID:");
-				int filmId = Integer.parseInt(input.nextLine());
-				testGetFilmById(filmId);
-				break;
-			case 2:
-				System.out.println("Please enter a keyword to search for:");
-				String keyword = input.nextLine();
-				testFindAllFilms(keyword);
-				break;
-			case 3:
-				System.out.println("Exiting the application.");
-				keepGoing = false;
-				break;
-			default:
-				System.out.println("Invalid selection. Please try again.");
-				break;
+				int userChoice = Integer.parseInt(input.nextLine());
+
+				switch (userChoice) {
+				case 1:
+					System.out.println("\nPlease enter the film ID:");
+					int filmId = Integer.parseInt(input.nextLine());
+					testGetFilmById(filmId);
+					break;
+				case 2:
+					System.out.println("\nPlease enter a keyword to search for:");
+					String keyword = input.nextLine();
+					testFindAllFilms(keyword);
+					// TODO - convert to like query instead of filtering from all
+					break;
+				case 3:
+					System.out.println("\nExiting the application.");
+					keepGoing = false;
+					break;
+				default:
+					System.err.println("\nInvalid selection. Please try again.");
+					break;
+				}
+
+			} catch (Exception e) {
+				System.err.println("\nInvalid input. Please try again.");
+				continue;
 			}
 
 		}
