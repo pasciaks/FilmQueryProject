@@ -158,7 +158,7 @@ public class FilmQueryApp {
 
 		Film film = db.findFilmById(filmId);
 		if (film == null || film.getId() == 0) {
-			System.out.println("Film not found for filmId = " + filmId);
+			System.out.println("\nFilm not found for filmId = " + filmId);
 		} else {
 			System.out.println(film.toString());
 		}
