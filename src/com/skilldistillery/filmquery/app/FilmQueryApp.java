@@ -73,7 +73,7 @@ public class FilmQueryApp {
 
 		boolean isClosed = ((DatabaseAccessorObject) app.db).closeConnection();
 
-		System.out.println("Database connection closed: " + isClosed);
+		System.out.println("\nDatabase connection closed: " + isClosed);
 
 		System.err.println("\n\nGoodbye.\n");
 
@@ -150,7 +150,7 @@ public class FilmQueryApp {
 			for (Film film : films) {
 				System.out.println(film.toString());
 			}
-			System.out.println(films.size() + " Films found for keyword: " + searchKeyword + "\n");
+			System.out.println(films.size() + " Film(s) found for keyword: " + searchKeyword + "\n");
 		}
 	}
 
@@ -239,7 +239,7 @@ public class FilmQueryApp {
 
 			try {
 				showTitle();
-				System.out.println("\n\nPlease select from the following options:");
+				System.out.println("\nPlease select from the following options:");
 				System.out.println("1. Look up a film by its ID.");
 				System.out.println("2. Look up a film by a keyword search.");
 				System.out.println("3. Exit the application.");
