@@ -218,6 +218,19 @@ public class FilmQueryApp {
 		input.close();
 	}
 
+	private void showTitle() {
+		System.out.println("\n\n Film Query App \n\n");
+	}
+
+	private void showTitleAlternative() {
+		System.out.println("	 _____  _  _           ___                        ");
+		System.out.println("	 | __| (_) |_ __ ___  / _ \\ _   _  ___ _ __ _   _ ");
+		System.out.println("	 | |_  | | | '_ ` _ \\| | | | | | |/ _ \\ '__| | | |");
+		System.out.println("	 |  _| | | | | | | | | |_| | |_| |  __/ |  | |_| |");
+		System.out.println("	 |_|   |_|_|_| |_| |_|\\__\\_\\\\__,_|\\___|_|   \\__, |");
+		System.out.println("	                                            |___/ ");
+	}
+
 	private void startUserInterface(Scanner input) {
 
 		boolean keepGoing = true;
@@ -225,7 +238,7 @@ public class FilmQueryApp {
 		while (keepGoing) {
 
 			try {
-
+				showTitle();
 				System.out.println("\n\nPlease select from the following options:");
 				System.out.println("1. Look up a film by its ID.");
 				System.out.println("2. Look up a film by a keyword search.");
